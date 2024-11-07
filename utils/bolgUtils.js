@@ -4,8 +4,10 @@ const bolgUtils = ({title, textBody})=>{
             if(!title === String) return reject("Title Should be Text");
             if(!textBody === String) return reject("TextBody is not a Text")
 
-            if(titlelength < 3 || title.length > 100) return reject("Title Should be 3-100");
+            if(title.length < 3 || title.length > 100) return reject("Title Should be 3-100");
             if(textBody < 3 || textBody.length > 1000) return reject("TextBody Should be 3-1000");
+            
+            resolve();
         })
 }
 

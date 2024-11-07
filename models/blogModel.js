@@ -6,13 +6,13 @@ const createBlog = ({ title, textBody, userId }) => {
             title: title,
             textBody: textBody,
             userId: userId,
-            creationDateTime: Date.now(),
+            createDateTime: Date.now(),
         });
         try {
             const blogDb = await blogObj.save();
-            return resolve(blogDb);
+            resolve(blogDb);
         } catch (error) {
-            return reject(error)
+             reject(error)
         }
     });
 };

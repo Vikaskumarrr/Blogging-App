@@ -1,7 +1,7 @@
-const createBlog = require("../models/blogModel");
+const { createBlog } = require("../models/blogModel");
 const bolgUtils = require("../utils/bolgUtils");
 
-const blogController = async (req, res) => {
+const createBlogController = async (req, res) => {
 
     const { title, textBody } = req.body;
     const userId = req.session.user.userId;
@@ -17,7 +17,8 @@ const blogController = async (req, res) => {
     };
 
     try {
-        const blogDb = await createBlog({ title, textBody, userId })
+        const blogDb = await createBlog({ title, textBody, userId });
+
         return res.send({
             status: 201,
             message: "Blog created succesfully",
@@ -25,7 +26,7 @@ const blogController = async (req, res) => {
         });
     } catch (error) {
         return res.send({
-            status: 400,
+            status: 500,
             message: "Internal Server error",
             error: error,
         });
@@ -34,4 +35,4 @@ const blogController = async (req, res) => {
 
 
 
-module.exports =  {blogController} ; 
+module.exports = { createBlogController }; 
