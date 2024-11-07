@@ -8,6 +8,7 @@ const mongodbSession = require("connect-mongodb-session")(session);
 // File-Improts
 const db = require("./db")
 const authRouter = require("./routers/authRouter");
+const bolgRouter = require("./routers/bolgRouter");
 
 // Constant
 const app = express();
@@ -26,7 +27,10 @@ app.use(session({
     resave: false,
     saveUninitialized : false,
 }))
-app.use("/auth", authRouter)
+
+
+app.use("/auth", authRouter);
+app.use("/blog", bolgRouter);
 
 app.listen(PORT,()=>{ 
     console.log(clc.yellowBright.underline("Server is up and runing PORT:8000"))
