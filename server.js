@@ -17,6 +17,7 @@ const store = new mongodbSession({
     uri : process.env.MONGO_URI,
     collection: "session",
 })
+const isAuth = require("./middlewares/isAuthMiddleware")
 
 
 //MiddleWares
@@ -30,7 +31,7 @@ app.use(session({
 
 
 app.use("/auth", authRouter);
-app.use("/blog", bolgRouter);
+app.use("/blog", isAuth, bolgRouter);
 
 app.listen(PORT,()=>{ 
     console.log(clc.yellowBright.underline("Server is up and runing PORT:8000"))
