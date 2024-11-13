@@ -3,29 +3,29 @@ const { type } = require("os");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    name: { 
+    name: {
         type: String,
         require: true
-    }, 
-    username: { 
+    },
+    username: {
         type: String,
         require: true,
         unique: true,
         minLength: 3,
         maxLength: 50
     },
-    email: { 
+    email: {
         type: String,
         require: true,
         unique: true,
         minLength: 3,
         maxLength: 50
-    } ,
-    password: { 
+    },
+    password: {
         type: String,
         require: true,
         select: false,
-    } ,
+    },
 
 });
 
