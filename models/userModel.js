@@ -1,4 +1,5 @@
 const userschema = require("../schemas/userschema");
+const { ObjectId } = require("mongodb")
 
 const User = class {
 
@@ -42,11 +43,11 @@ const User = class {
         return new Promise(async (resolve, reject) => {
             try {
                 const userDb = await userschema.findOne({
-                    $or: [{ email: key }, { username : key }],
+                    $or: [ ObjectId.isValid(key) ? {_id : key} :  { email: key }, { username: key }],
                 }).select("+password");
 
                 if (!userDb) return reject("User not Found");
-
+ 
                 resolve(userDb)
             } catch (error) {
                 reject(error)
@@ -56,8 +57,3 @@ const User = class {
 }
 
 module.exports = User;
-
-
-
-
-// Controller(User) <---------> Model(Schema) <-------->
