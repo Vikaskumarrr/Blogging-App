@@ -1,4 +1,4 @@
-const {followUser,getFollowingList} = require("../models/followModel");
+const { followUser, getFollowingList,unfollowUser } = require("../models/followModel");
 const User = require("../models/userModel");
 
 const followUserController = async (req, res) => {
@@ -38,11 +38,11 @@ const followUserController = async (req, res) => {
 
 const getFollowingListController = async (req, res) => {
     const followerUserId = req.session.user.userId;
+
     const SKIP = Number(req.query.skip) || 0;
 
     try {
         const followingListDb = await getFollowingList({ followerUserId, SKIP });
-
         return res.send({
             status: 200,
             message: "Read successfully",
@@ -52,11 +52,32 @@ const getFollowingListController = async (req, res) => {
         return res.send({
             status: 500,
             message: "Internal Server error",
-            error: error
+            error: error,
         });
     }
 }
 
+const unfollowUserController = async(req,res)=>{ 
+        const followerUserId = req.session.user.userId ; 
+        const followingUserId = req.body.followingUserId ;
+
+        try {
+            const followDb = await unfollowUser({followerUserId, followingUserId});
+
+            return res.send({ 
+                status : 200,
+                message: "Unfollow Successfully",
+                data: followDb,
+            })
+        } catch (error) {
+            return res.send({ 
+                status : 500,
+                message: "Internal server Error",
+                error: error,
+            })
+        }
+}
 
 
-module.exports = { followUserController, getFollowingListController };
+
+module.exports = { followUserController, getFollowingListController,unfollowUserController };

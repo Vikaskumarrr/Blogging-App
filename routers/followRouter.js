@@ -1,10 +1,11 @@
 const express = require("express");
-const { followUserController,getFollowingListController } = require("../controllers/followController");
+const { followUserController,getFollowingListController,unfollowUserController } = require("../controllers/followController");
 const followRouter = express.Router();
 
 followRouter.
     post("/follow-user", followUserController)
     .get("/get-following", getFollowingListController)
+    .post("/unfollow-user",unfollowUserController)
 
 
 
